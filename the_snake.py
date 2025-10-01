@@ -1,7 +1,7 @@
 import pygame
 import random
-from pygame.locals import K_DOWN, K_LEFT, K_RIGHT, K_UP, KEYDOWN, QUIT
 
+from pygame.locals import K_DOWN, K_LEFT, K_RIGHT, K_UP, KEYDOWN, QUIT
 
 SCREEN_WIDTH = 640
 SCREEN_HEIGHT = 480
@@ -16,7 +16,6 @@ UP = (0, -GRID_SIZE)
 DOWN = (0, GRID_SIZE)
 LEFT = (-GRID_SIZE, 0)
 RIGHT = (GRID_SIZE, 0)
-
 
 pygame.init()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -81,7 +80,10 @@ class Snake(GameObject):
     def move(self):
         """Перемещает змейку в текущем направлении и обновляет её позиции."""
         head_x, head_y = self.get_head_position()
-        new_head = (head_x + self.direction[0], head_y + self.direction[1])
+        new_head = (
+            head_x + self.direction[0],
+            head_y + self.direction[1]
+        )
         new_head = (new_head[0] % SCREEN_WIDTH, new_head[1] % SCREEN_HEIGHT)
         self.positions.insert(0, new_head)
 
@@ -98,7 +100,10 @@ class Snake(GameObject):
 
         if self.last_segment:
             rect = pygame.Rect(
-                self.last_segment[0], self.last_segment[1], GRID_SIZE, GRID_SIZE
+                self.last_segment[0],
+                self.last_segment[1],
+                GRID_SIZE,
+                GRID_SIZE
             )
             pygame.draw.rect(surface, BLACK, rect)
 
