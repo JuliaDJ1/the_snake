@@ -1,6 +1,5 @@
 import random
 import pygame
-
 from pygame.locals import K_DOWN, K_LEFT, K_RIGHT, K_UP, KEYDOWN, QUIT
 
 SCREEN_WIDTH = 640
@@ -26,7 +25,11 @@ pygame.display.set_caption('Змейка')
 class GameObject:
     """Содержит позицию и цвет объекта, а также метод для отрисовки."""
 
-    def __init__(self, position=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2), body_color=BLACK):
+    def __init__(
+        self,
+        position=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2),
+        body_color=BLACK
+    ):
         """Инициализирует объект с заданной позицией и цветом.
 
         Args:
@@ -57,7 +60,8 @@ class Apple(GameObject):
 
     def draw(self, surface):
         """Отрисовывает яблоко на указанной поверхности."""
-        rect = pygame.Rect(self.position[0], self.position[1], GRID_SIZE, GRID_SIZE)
+        rect = pygame.Rect(self.position[0], self.position[1],
+                           GRID_SIZE, GRID_SIZE)
         pygame.draw.rect(surface, self.body_color, rect)
 
 
@@ -77,7 +81,7 @@ class Snake(GameObject):
         self.last_segment = None
 
     def update_direction(self, new_direction):
-        """Обновляет направление движения змейки, если новое направление допустимо."""
+        """Обновляет направление движения змейки"""
         if new_direction is not None:
             opposite = (-self.direction[0], -self.direction[1])
             if new_direction != opposite:
