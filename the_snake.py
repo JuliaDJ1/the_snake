@@ -1,6 +1,6 @@
 import random
-
 import pygame
+
 from pygame.locals import K_DOWN, K_LEFT, K_RIGHT, K_UP, KEYDOWN, QUIT
 
 SCREEN_WIDTH = 640
@@ -26,11 +26,13 @@ pygame.display.set_caption('Змейка')
 class GameObject:
     """Содержит позицию и цвет объекта, а также метод для отрисовки."""
 
-    def __init__(
-        self,
-        position=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2),
-        body_color=BLACK
-    ):
+    def __init__(self, position=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2), body_color=BLACK):
+        """Инициализирует объект с заданной позицией и цветом.
+
+        Args:
+            position: Кортеж (x, y) с координатами объекта.
+            body_color: Кортеж RGB для цвета объекта.
+        """
         self.position = position
         self.body_color = body_color
 
@@ -43,6 +45,7 @@ class Apple(GameObject):
     """Класс для яблока, наследуемый от GameObject."""
 
     def __init__(self):
+        """Инициализирует яблоко с красным цветом и случайной позицией."""
         super().__init__(body_color=RED)
         self.randomize_position()
 
@@ -84,9 +87,14 @@ class Snake(GameObject):
     def move(self):
         """Перемещает змейку в текущем направлении и обновляет её позиции."""
         head_x, head_y = self.get_head_position()
-        new_head_x = head_x + self.direction[0]
-        new_head_y = head_y + self.direction[1]
-        new_head = (new_head_x % SCREEN_WIDTH, new_head_y % SCREEN_HEIGHT)
+        new_head = (
+            head_x + self.direction[0],
+            head_y + self.direction[1]
+        )
+        new_head = (
+            new_head[0] % SCREEN_WIDTH,
+            new_head[1] % SCREEN_HEIGHT
+        )
         self.positions.insert(0, new_head)
 
         if len(self.positions) > self.length:
@@ -172,4 +180,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    
