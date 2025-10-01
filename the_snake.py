@@ -1,4 +1,10 @@
+"""Игра 'Змейка', реализованная с использованием Pygame.
+
+Управляйте змейкой с помощью стрелок, собирайте яблоки, избегайте столкновений.
+"""
+
 import random
+
 import pygame
 from pygame.locals import K_DOWN, K_LEFT, K_RIGHT, K_UP, KEYDOWN, QUIT
 
@@ -81,7 +87,7 @@ class Snake(GameObject):
         self.last_segment = None
 
     def update_direction(self, new_direction):
-        """Обновляет направление движения змейки"""
+        """Обновляет направление движения змейки."""
         if new_direction is not None:
             opposite = (-self.direction[0], -self.direction[1])
             if new_direction != opposite:
