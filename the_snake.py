@@ -39,21 +39,14 @@ class GameObject:
         self.position = position
         self.body_color = body_color
 
-    def draw(self, surface: pygame.Surface) -> None:
+    def draw(self) -> None:
         """Отрисовывает объект на указанной поверхности."""
         raise NotImplementedError('Метод draw должен быть в дочернем классе.')
 
-    def draw_cell(self,
-                  surface: pygame.Surface,
-                  position: tuple[int, int]) -> None:
-        """Отрисовывает прямоугольную ячейку на заданной позиции.
-
-        Args:
-            surface: Поверхность Pygame для отрисовки.
-            position: Кортеж (x, y) с координатами ячейки.
-        """
+    def draw_cell(self, position: tuple[int, int]) -> None:
+        """Отрисовывает прямоугольную ячейку на заданной позиции."""
         rect = pygame.Rect(position[0], position[1], GRID_SIZE, GRID_SIZE)
-        pygame.draw.rect(surface, self.body_color, rect)
+        pygame.draw.rect(screen, self.body_color, rect)
 
 
 class Apple(GameObject):
@@ -76,9 +69,9 @@ class Apple(GameObject):
                 self.position = new_position
                 break
 
-    def draw(self, surface: pygame.Surface) -> None:
+    def draw(self) -> None:
         """Отрисовывает яблоко на указанной поверхности."""
-        self.draw_cell(surface, self.position)
+        self.draw_cell(self.position)
 
 
 class Snake(GameObject):
@@ -117,16 +110,16 @@ class Snake(GameObject):
         else:
             self.last_segment = None
 
-    def draw(self, surface: pygame.Surface) -> None:
+    def draw(self) -> None:
         """Отрисовывает змейку и стирает последний сегмент, если он есть."""
         for position in self.positions:
-            self.draw_cell(surface, position)
+            self.draw_cell(position)
 
         if self.last_segment:
             rect = pygame.Rect(self.last_segment[0],
                                self.last_segment[1],
                                GRID_SIZE, GRID_SIZE)
-            pygame.draw.rect(surface, BLACK, rect)
+            pygame.draw.rect(screen, BLACK, rect)
 
     def get_head_position(self) -> tuple[int, int]:
         """Возвращает позицию головы змейки."""
@@ -181,8 +174,8 @@ def main() -> None:
             apple.randomize_position(snake.positions)
 
         screen.fill(BOARD_BACKGROUND_COLOR)
-        snake.draw(screen)
-        apple.draw(screen)
+        snake.draw()
+        apple.draw()
 
         pygame.display.update()
         clock.tick(10)
