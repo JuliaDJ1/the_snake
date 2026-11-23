@@ -28,7 +28,7 @@ Python 3.10+ · Pygame · ООП · type hints · pytest · flake8
 ## Запуск
 
 ```bash
-git clone https://github.com/JuliaDJ1/the_snake.git
+git clone https://github.com/vadim-guseinov/the_snake.git
 cd the_snake
 python -m venv venv
 source venv/bin/activate        # Windows: venv\Scripts\activate
